@@ -10,6 +10,7 @@ import csv
 import json
 import re
 import tools
+import os
 import random as rand
 
 
@@ -18,7 +19,7 @@ def csv_to_dict(path, name):
     return {row[name]: {x: row[x] for x in row if not x == name} for row in c}
 
 
-root_path = "C:\\Users\\Will\\Code\\Python\\Discord_RPG_Helper\\FalloutCombat\\data\\FNT\\"
+root_path = os.path.dirname(__file__) + "\\data\\FNT\\"
 
 
 class Skirmish:
