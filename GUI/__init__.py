@@ -38,6 +38,9 @@ class Skirmish:
                     "HIT": 5,
                     "RANGE": 1.1
                 },
+                "dark": {
+                    "HIT": -5
+                },
                 "night": {
                     "HIT": -10,
                     "RANGE": 0.75
@@ -49,9 +52,6 @@ class Skirmish:
                 "rainy": {
                     "HIT": -10,
                     "RANGE": .85
-                },
-                "waist deep water": {
-                    "SQ": 0.5
                 }
             }
             pos = {
@@ -117,8 +117,8 @@ class Skirmish:
                     "COOLDOWN": 2
                 },
                 "poisoned": {
-                    "HP": -3,
-                    "COOLDOWN": 4,
+                    "HP": -2,
+                    "COOLDOWN": 2,
                 }
             }
 
@@ -127,6 +127,7 @@ class Skirmish:
         self.hit_mod = 0
         self.temp_ap = 0
         self.temp_sq = 0
+        self.temp_xp = 0
         self.environment = None
 
         self.combatant_list = OrderedDict(sorted(self.combatants.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
@@ -925,8 +926,9 @@ class GUI:
                 case "BG" | "SG" | "AR":
                     eq = f"{self.ammo[wd['AMMO']]['DMG']}+{wd['DB']}+{wd['DMG']}"
 
-
+            ap_label.config(text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
             roll_dmg_eq_label.config(text=eq)
+            xp_label.config(text=f"XP: {skirm.temp_xp}")
 
 
         def start_combat():
@@ -995,7 +997,7 @@ class GUI:
             weapon_skill = skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]["SKILL"]
             target = skirm.combatants[skirm.cur_combatant]["combat_skills"][weapon_skill] + skirm.hit_mod
             skirm.temp_ap -= int(skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]["AP"])
-            ap_label.config(text=f"AP: {skirm.temp_ap}")
+            ap_label.config(text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
             if die_roll <= target:
                 print("HIT")
                 hit_miss_label.config(text="HIT", fg="green")
@@ -1031,18 +1033,32 @@ class GUI:
             dt = int(dt)
             dr = int(dr)/100
 
-            total_dmg -= dt
             n = math.floor(total_dmg * dr)
+            total_dmg -= dt
             total_dmg -= n
 
             if total_dmg < 0:
                 total_dmg = 0
 
+            new_hp = int(hp) - total_dmg
+            dead = False
+            if new_hp < 1:
+                if skirm.combatants[defender_name.cget("text")]["team"] == "r":
+                    xp_gain = int(skirm.combatants[defender_name.cget("text")]["xp"])
+                    skirm.temp_xp += xp_gain
+                    xp_label.config(text=f"XP: {skirm.temp_xp}")
+                    dead = True
+
+
+
             defender_entries["HP"].delete(0, END)
-            defender_entries["HP"].insert(0, str(hp - total_dmg))
+            defender_entries["HP"].insert(0, str(int(hp) - total_dmg))
             hit_chance_label.config(text=hit_chance_label.cget("text") +
             f"\n{skirm.cur_combatant} did {total_dmg} ({total_dmg + n + dt} - {dt} - {n}) damage to {defender_name.cget('text')} putting them at {hp -total_dmg}")
             skirm.combatants[defender_name.cget("text")]["secondary_skills"]["HP"] -= total_dmg
+            if dead:
+                text = hit_chance_label.cget("text") + f"\n{defender_name.cget('text')} is dead. {xp_gain} XP gained."
+                hit_chance_label.config(text=text)
             print(total_dmg)
 
         roll_hit_label = Label(combat_frame, text="ROLL HIT:", font=info_font, justify="left")
@@ -1057,6 +1073,12 @@ class GUI:
         hit_miss_label.place(x=55, y=180)
         ap_label.place(x=150, y=185)
         roll_hit_entry.bind("<Return>", roll_to_hit)
+
+        xp_label = Label(combat_frame, text=f"XP: {skirm.temp_xp}", font=info_font)
+
+        xp_label.place(x=570, y=180)
+
+
 
         roll_dmg_label = Label(combat_frame, text="ROLL DMG:", font=info_font)
         roll_dmg_entry = Entry(combat_frame, font=info_font, width=3)

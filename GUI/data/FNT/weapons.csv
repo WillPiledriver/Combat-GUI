@@ -2,27 +2,27 @@ NAME,AP,SKILL,DMG,DB,RANGE,AMMO,ROUNDS,DMG TYPE
 molerat bite,3,U,1d4,0,1,,,N
 knife,3,M,1d8,{MD},1,,,N
 switchblade,3,M,1d6,{MD},1,,,N
-.22 pistol,5,SG,4,0,12,.22,7,N
+.22 pistol,5,SG,4,0,12,.22 cal,7,N
 brass knuckles,3,U,1d6,{MD},1,,,N
 bone saw,4,M,1d10,5+{MD},1,,,N
 beretta,5,SG,6,0,17,9mm,18,N
-louisville slugger,4,M,3d6,{MD}+3,1,,,N
+louisville slugger,4,M,2d6,{MD},1,,,N
 wattz 1000 laser pistol,4,EW,3d6,4,12,,2,L
 broken saw,3,M,1d12,5+{MD},1,,,N
 lizard bite,3,U,1d12,3+{MD},1,,,N
 lizard claws,2,U,1d6,{MD},1,,,N
 smirnoffs rifle,3,SG,1d12,0,40,9mm,20,N
-bile,5,TH,1d12,4,15,,,P
+bile,5,TH,1d8,2,15,,,N
 rock,3,TH,2d6,{MD},15,,,N
 claw,3,U,1d4,{MD},1,,,N
 spiked knuckles,3,U,1d10,4+{MD},1,,,N
-bite,4,U,1d12,{MD}+2,1,,,P
+bite,4,U,1d12,{MD}+2,1,,,N
 pulse rifle,5,EW,1d12,6,20,,,L
 laser rifle,6,EW,3d6,0,30,,,L
 m16a2,6,SG,6,0,40,5.56mm,,N
 wakizashi blade,3,M,1d12,4+{MD},1,,,N
 combat knife,3,M,1d12,3+{MD},1,,,N
-m2,1,SG,3,0,30,.50,30,N
+m2,1,SG,3,0,30,.50 cal,30,N
 hanyang 88,5,SG,5,0,75,7.62mm,5,N
 chinese assault rifle,4,SG,1,0,25,5.56mm,20,N
 radroach tackle,3,U,1d3,0,2,,,N
@@ -32,4 +32,6 @@ sanzen kousei,3,M,1d8,{MD},1,,,N
 m1911,4,SG,3,0,12,.45 acp,7,N
 paperweight,3,M,1d12,2,1,,,N
 screwdriver,3,M,1d6,0,1,,,N
-little steve,5,SG,2,0,35,.308,1,N
+little steve,5,SG,2,0,35,.308 winchester,1,N
+turret gun,3,SG,2,0,20,5.56mm,20,N
+lawn mower blade,4,M,1d8,{MD}+3,1,,,N

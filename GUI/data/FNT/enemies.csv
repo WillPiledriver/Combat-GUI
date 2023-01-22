@@ -16,3 +16,5 @@ commie ghost,chinese,3-6,3-4,3-4,1,4,3-4,5,"SG 25,M 25-35,U 25-35","chinese assa
 commie sniper,chinese,3-4,6-8,3-4,1,5,6-7,7,"SG 50,U 25-35",hanyang 88,chinese uniform,300,1,"Commie Sniper,Chinese Ranger,Chinese Ranger Ghoul,Commie with a Long Gun"
 radroach,creatures,1-2,1-2,1-3,1,1,3-4,4,U 10-20,"radroach tackle,radroach bite",radroach carapice,25,1,"Radroach,Baby Radroach,Mama Radroach,Papa Radroach,Cousin Radroach,Grandma Radroach,Uncle Radroach,Grandpa Radroach,Auntie Radroach,Radroach Thug,Radroach Wearing a Tiny Labcoat,Handsome Radroach,Radroach Missing a Few Limbs,Radroach That is Covered in Human Blood"
 molerat alpha,creatures,5,3-5,5,1,1,6,5,"U 20-30,MD 3",molerat bite,tough hide,75,1,
+molerat queen,creatures,6,6,6,1,1,6,5,"U 20,TH 20,HP 15","bite,bile",tough hide,150,1,
+turret,ai,1,9,5,1,1,9,5,"BG 25,SG 35",turret gun,being a robot,100,1,
