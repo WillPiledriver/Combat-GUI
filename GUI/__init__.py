@@ -78,49 +78,90 @@ class Skirmish:
             s_e = {
                 "crouched": {
                     "HIT": 5,
-                    "AC": 3
+                    "AC": 3,
+                    "INSTANT": True
                 },
                 "prone": {
                     "HIT": 7,
-                    "AC": 5
+                    "AC": 5,
+                    "INSTANT": True
                 },
                 "on fire": {
-                    "HP": -2,
+                    "HP": -3,
                     "AP": -2,
                     "HIT": -20,
-                    "COOLDOWN": 2
+                    "COOLDOWN": 2,
+                    "INSTANT": False
                 },
                 "drunk": {
                     "HIT": -10,
-                    "MD": 2
+                    "MD": 2,
+                    "INSTANT": True
                 },
                 "stimpack": {
                     "HP": 10,
-                    "COOLDOWN": 2
+                    "COOLDOWN": 2,
+                    "INSTANT": True
                 },
                 "crippled": {
                     "SQ": -5,
-                    "AP": -3,
-                    "COOLDOWN": 5
+                    "AP": -2,
+                    "COOLDOWN": 3,
+                    "INSTANT": True
                 },
                 "concussed": {
                     "HIT": -10,
                     "AP": -3,
-                    "COOLDOWN": 5
+                    "COOLDOWN": 3,
+                    "INSTANT": True
                 },
                 "blind": {
                     "HIT": -60,
-                    "SQ": -2
+                    "SQ": -2,
+                    "INSTANT": True
                 },
                 "bleeding": {
                     "HP": -4,
-                    "COOLDOWN": 2
+                    "COOLDOWN": 2,
+                    "INSTANT": False
                 },
                 "poisoned": {
                     "HP": -2,
                     "COOLDOWN": 2,
+                    "INSTANT": False
+                },
+                "jet": {
+                    "AP": 2,
+                    "S": 1,
+                    "P": 1,
+                    "INSTANT": True
+                },
+                "buffout": {
+                    "S": 2,
+                    "E": 3,
+                    "A": 2,
+                    "INSTANT": True
+                },
+                "psycho": {
+                    "DMG": 1.25,
+                    "A": 2,
+                    "INSTANT": True
+                },
+                "super stimpack": {
+                    "HP": 35,
+                    "COOLDOWN": 1,
+                    "INSTANT": True
+                },
+                "med-x": {
+                    "DR": 50,
+                    "INSTANT": True
                 }
             }
+
+        # TODO: incorporate SPECIAL and DR into combat effects and detect random values
+        # TODO: calculate all skills on the fly using calc_base + code from prep functions or recalculate them from -
+        # TODO: calc_turn if attributes have changed
+        # TODO: change turn order when SQ is changed
 
         self.con = Constant()
         self.turn = 0
@@ -204,8 +245,11 @@ class Skirmish:
                                     if val < 1:
                                         result["PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     else:
+                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
+                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - self.combatants[self.cur_combatant]['secondary_skills']['HP']
                                         result["PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     self.combatants[attacker]["secondary_skills"][effect] += val
+
                         if "COOLDOWN" in self.combatants[attacker]["eff"][e]:
                             self.combatants[attacker]["eff"][e]["COOLDOWN"] -= 1
                             print("COOL")
@@ -269,6 +313,8 @@ class Skirmish:
                                     if val < 1:
                                         stuff["PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     else:
+                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
+                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - self.combatants[self.cur_combatant]['secondary_skills']['HP']
                                         stuff["PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     c["secondary_skills"][effect] += val
                                 else:
@@ -483,7 +529,7 @@ class GUI:
             if secondary == "AP":
                 if result["secondary_skills"][secondary] < 5:
                     result["secondary_skills"]["AP"] = 5
-                result["secondary_skills"]["AP"] = math.floor(result["secondary_skills"]["AP"])
+                result["secondary_skills"]["AP"] = math.ceil(result["secondary_skills"]["AP"])
             if secondary == "MD" and result["secondary_skills"][secondary] < 0:
                 result["secondary_skills"][secondary] = 0
 
@@ -511,6 +557,8 @@ class GUI:
                 result["secondary_skills"][b_split[0]] += b_split[1]
             else:
                 print("bonus {} does nothing".format(b_split[0]))
+
+        result["secondary_skills"]["MAX HP"] = result["secondary_skills"]["HP"]
 
         result["bonus"] = dict()
         return result
@@ -555,12 +603,10 @@ class GUI:
                 for skill in self.secondary.keys():
                     self.players[k]["secondary_skills"][skill] = self.calc_base(self.players[k]["attributes"],
                                                                                 self.secondary[skill]["eq"])
-                    if skill == "AP" and self.players[k]["secondary_skills"][skill] < 5:
-                        self.players[k]["secondary_skills"][skill] = 5
                     if skill == "AP":
                         if self.players[k]["secondary_skills"]["AP"] < 5:
                             self.players[k]["secondary_skills"]["AP"] = 5
-                        self.players[k]["secondary_skills"]["AP"] = math.floor(self.players[k]["secondary_skills"]["AP"])
+                        self.players[k]["secondary_skills"]["AP"] = math.ceil(self.players[k]["secondary_skills"]["AP"])
                     if skill == "MD" and self.players[k]["secondary_skills"][skill] < 0:
                         self.players[k]["secondary_skills"][skill] = 0
 
@@ -593,6 +639,7 @@ class GUI:
                     if armor_bns_splt[0] in self.players[k]["secondary_skills"]:
                         self.players[k]["secondary_skills"][armor_bns_splt[0]] += int(armor_bns_splt[1])
 
+                self.players[k]["secondary_skills"]["MAX HP"] = self.players[k]["secondary_skills"]["HP"]
                 self.players[k]["BONUS"] = ""
 
     def main_menu(self):
@@ -752,8 +799,6 @@ class GUI:
         defender_labels = dict()
         defender_entries = dict()
 
-
-
         def stat_change(event, name):
             entry = event.widget
             if entry is attacker_entries[name]:
@@ -781,6 +826,29 @@ class GUI:
                 try:
                     skirm.combatants[com][name] = json.loads(entry.get("1.0", END))
                     print(entry.get("1.0", END))
+                    if len(skirm.combatants[com][name]) > 0:
+                        if isinstance(skirm.combatants[com][name], list):
+                            temp = dict()
+                            for l_effect in skirm.combatants[com][name]:
+                                temp[l_effect] = dict(skirm.con.s_e[l_effect])
+                            skirm.combatants[com][name] = dict(temp)
+                        for ky, dt in skirm.combatants[com][name].items():
+                            if isinstance(skirm.combatants[com][name][ky], str):
+                                skirm.combatants[com][name][ky] = dict(skirm.con.s_e[skirm.combatants[com][name][ky]])
+
+                    entry.delete("1.0", END)
+                    entry.insert("1.0", json.dumps(skirm.combatants[com][name]))
+
+                    for k, d in skirm.combatants[com][name].items():
+                        if "INSTANT" in d:
+                            if d["INSTANT"]:
+                                # TODO: something
+                                pass
+                            else:
+                                # do nothing
+                                pass
+
+                    update_everything()
                 except json.decoder.JSONDecodeError:
                     pass
                 except Exception as e:
@@ -966,6 +1034,20 @@ class GUI:
             attacker_name.config(text=skirm.cur_combatant)
             hit_miss_label.config(text="")
 
+            # Check if dead
+            if skirm.combatants[skirm.cur_combatant]["secondary_skills"]["HP"] < 1:
+                defender_entries["HP"].config(text=skirm.combatants[skirm.cur_combatant]["secondary_skills"]["HP"])
+                items = c_listbox.get(0, END)
+                i = items.index(skirm.cur_combatant)
+                if skirm.combatants[skirm.cur_combatant]["team"] == "r" and c_listbox.itemcget(i, "bg") != "#fa9898":
+                    xp_gain = int(skirm.combatants[skirm.cur_combatant]["xp"])
+                    skirm.temp_xp += xp_gain
+                    xp_label.config(text=f"XP: {skirm.temp_xp}")
+                    text = hit_chance_label.cget(
+                        "text") + f"\n{skirm.cur_combatant} is dead. {xp_gain} XP gained."
+                    hit_chance_label.config(text=text)
+                    c_listbox.itemconfig(i, bg="#fa9898")
+
             wd = skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]
             eq = ""
             match wd["SKILL"]:
@@ -974,7 +1056,6 @@ class GUI:
 
                 case "BG" | "SG" | "AR":
                     eq = f"{self.ammo[wd['AMMO']]['DMG']}+{wd['DB']}+{wd['DMG']}"
-
 
             roll_dmg_eq_label.config(text=eq)
 
@@ -985,9 +1066,7 @@ class GUI:
 
         hit_chance_label = Label(combat_frame, font=info_font, justify="left")
 
-
         # Roll stuff
-
         def roll_to_hit(event=None):
             if roll_hit_entry.get() == "":
                 die_roll = random.randint(1, 100)
@@ -1042,14 +1121,13 @@ class GUI:
 
             new_hp = int(hp) - total_dmg
             dead = False
+            xp_gain = 0
             if new_hp < 1:
                 if skirm.combatants[defender_name.cget("text")]["team"] == "r":
                     xp_gain = int(skirm.combatants[defender_name.cget("text")]["xp"])
                     skirm.temp_xp += xp_gain
                     xp_label.config(text=f"XP: {skirm.temp_xp}")
                     dead = True
-
-
 
             defender_entries["HP"].delete(0, END)
             defender_entries["HP"].insert(0, str(int(hp) - total_dmg))
@@ -1059,6 +1137,9 @@ class GUI:
             if dead:
                 text = hit_chance_label.cget("text") + f"\n{defender_name.cget('text')} is dead. {xp_gain} XP gained."
                 hit_chance_label.config(text=text)
+                items = c_listbox.get(0, END)
+                i = items.index(defender_name.cget('text'))
+                c_listbox.itemconfig(i, bg="#fa9898")
             print(total_dmg)
 
         roll_hit_label = Label(combat_frame, text="ROLL HIT:", font=info_font, justify="left")
@@ -1077,8 +1158,6 @@ class GUI:
         xp_label = Label(combat_frame, text=f"XP: {skirm.temp_xp}", font=info_font)
 
         xp_label.place(x=570, y=180)
-
-
 
         roll_dmg_label = Label(combat_frame, text="ROLL DMG:", font=info_font)
         roll_dmg_entry = Entry(combat_frame, font=info_font, width=3)

@@ -1,5 +1,5 @@
 NAME,S,P,E,C,I,A,L,AP,MD,SQ,CRIT,CAPS,XP,WEAPON,ARMOR,PLAYER NAME,BONUS,LEVEL
-Woody,2,2,3,9,7,6,6,8,1,10,6,0,0,m1911,leather jacket,Kyle,SG 20,1
-Fukuyo Saito,10,3,9,1,8,6,5,8,5,12,2,0,0,sanzen kousei,fukuyos armor,Aaron,"AR 20,M 20,MD 2,CRIT -4",1
-Steve Sherwin,3,4,8,4,5,8,4,9,1,16,4,0,0,little steve,leather jacket,Nate,SG 20,1
-Greedo Ghoul,4,7,7,1,9,6,1,8,1,20,1,0,0,wattz 1000 laser pistol,leather jacket,Manny,EW 20,1
+Woody,2,2,3,9,7,7,6,8,1,11,6,0,0,m1911,leather jacket,Kyle,"SG 40,HP 4",2
+Fukuyo Saito,10,3,9,1,8,7,5,8,5,12,2,0,0,sanzen kousei,fukuyos armor,Aaron,"AR 50,M 20,MD 2,CRIT -4,HP 7",2
+Steve Sherwin,3,4,8,4,5,9,4,9,1,17,4,0,0,little steve,leather jacket,Nate,"SG 50,HP 6",2
+Greedo Ghoul,4,7,7,1,9,6,1,8,1,20,1,0,0,wattz 1000 laser pistol,leather jacket,Manny,"EW 38,HP 6",2
