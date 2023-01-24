@@ -1,0 +1,15 @@
+**round down DR
+**fix AP, add ap cost
+**print xp on death - XP counter
+**HP always INT
+**AP is fucky
+**red dead
+**temp AP entry -NO
+balance first aid and repair
+balance critical failures and success
+instant status effects like stimpacks and chems
+SPECIAL status effects recalculates skills?
+damage and damage resistance status effects
+get RNG working for status effects
+loot drops
+scale enemies to players (using the level system)
