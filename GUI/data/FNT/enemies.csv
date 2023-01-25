@@ -18,3 +18,6 @@ radroach,creatures,1-2,1-2,1-3,1,1,3-4,4,U 10-20,"radroach tackle,radroach bite"
 molerat alpha,creatures,5,3-5,5,1,1,6,5,"U 20-30,MD 3",molerat bite,tough hide,75,1,
 molerat queen,creatures,6,6,6,1,1,6,5,"U 20,TH 20,HP 15","bite,bile",tough hide,150,1,
 turret,ai,1,9,5,1,1,9,5,"BG 25,SG 35",turret gun,being a robot,100,1,
+bloodbug,creatures,3-4,3-5,3-5,1,1,7,5,"U 30-40,HP -10",bloodbug proboscis ,bloodbug thorax,30,1,"Bloody Bloodbug,One-Eyed Bloodbug,Juvenile Bloodbug,Bloodbug with no legs"
+scumbag sniper,scum,3,6-7,3-4,1,3,7-8,7,"SG 25-35,SQ 5",hunting rifle,leather jacket,75,1,"Scum Sniper,Scumbag Marksman,Scumbag Markswoman,Scum Assassin"
+scumdog,scum,6-7,6-7,5-7,1,5,5-8,5,"SG 30-40,M 20-30,U 20-35","louisville slugger,spiked knuckles,m16a2",leather armor,150,2,"Scumdog Millionaire,Buff Scumdog,Very Angry Scumdog,6ft 5in Scumdog,Half-Mutant Scumdog"

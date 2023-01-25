@@ -2,10 +2,10 @@ NAME,AP,SKILL,DMG,DB,RANGE,AMMO,ROUNDS,DMG TYPE
 molerat bite,3,U,1d4,0,1,,,N
 knife,3,M,1d8,{MD},1,,,N
 switchblade,3,M,1d6,{MD},1,,,N
-.22 pistol,5,SG,4,0,12,.22 cal,7,N
+.22 pistol,3,SG,4,0,12,.22 cal,7,N
 brass knuckles,3,U,1d6,{MD},1,,,N
 bone saw,4,M,1d10,5+{MD},1,,,N
-beretta,5,SG,6,0,17,9mm,18,N
+beretta,4,SG,6,0,17,9mm,18,N
 louisville slugger,4,M,2d6,{MD},1,,,N
 wattz 1000 laser pistol,4,EW,3d6,4,12,,2,L
 broken saw,3,M,1d12,5+{MD},1,,,N
@@ -35,3 +35,5 @@ screwdriver,3,M,1d6,0,1,,,N
 little steve,5,SG,2,0,35,.308 winchester,1,N
 turret gun,3,SG,2,0,20,5.56mm,20,N
 lawn mower blade,4,M,1d8,{MD}+3,1,,,N
+bloodbug proboscis,3,U,1d6,{MD}+2,1,,,N
+hunting rifle,5,SG,0,0,30,.308 winchester,5,N

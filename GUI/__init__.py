@@ -171,7 +171,8 @@ class Skirmish:
         self.temp_xp = 0
         self.environment = None
 
-        self.combatant_list = OrderedDict(sorted(self.combatants.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
+        self.combatant_list = OrderedDict(
+            sorted(self.combatants.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
 
         self.start()
 
@@ -197,7 +198,8 @@ class Skirmish:
 
     def update_combatants(self, comb):
         self.combatants = copy.deepcopy(comb)
-        self.combatant_list = OrderedDict(sorted(self.combatants.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
+        self.combatant_list = OrderedDict(
+            sorted(self.combatants.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
         for k, d in self.combatants.items():
             if "effects" not in d:
                 self.combatants[k]["eff"] = dict()
@@ -230,7 +232,8 @@ class Skirmish:
                         self.combatants[attacker]["eff"] = dict(temp)
                     for ky, dt in self.combatants[attacker]["eff"].items():
                         if isinstance(self.combatants[attacker]["eff"][ky], str):
-                            self.combatants[attacker]["eff"][ky] = dict(self.con.s_e[self.combatants[attacker]["eff"][ky]])
+                            self.combatants[attacker]["eff"][ky] = dict(
+                                self.con.s_e[self.combatants[attacker]["eff"][ky]])
                     for e in self.combatants[attacker]["eff"]:
                         for effect, val in self.combatants[attacker]["eff"][e].items():
                             if effect in self.combatants[attacker]["secondary_skills"]:
@@ -243,11 +246,15 @@ class Skirmish:
                                         result = dict()
                                         result["PRETEXT"] = ""
                                     if val < 1:
-                                        result["PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
+                                        result[
+                                            "PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     else:
-                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
-                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - self.combatants[self.cur_combatant]['secondary_skills']['HP']
-                                        result["PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
+                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > \
+                                                self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
+                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - \
+                                                  self.combatants[self.cur_combatant]['secondary_skills']['HP']
+                                        result[
+                                            "PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     self.combatants[attacker]["secondary_skills"][effect] += val
 
                         if "COOLDOWN" in self.combatants[attacker]["eff"][e]:
@@ -311,11 +318,15 @@ class Skirmish:
                             elif effect == "HP":
                                 if c is a and update:
                                     if val < 1:
-                                        stuff["PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
+                                        stuff[
+                                            "PRETEXT"] += f"{self.cur_combatant} took {val * -1} damage from being {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     else:
-                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
-                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - self.combatants[self.cur_combatant]['secondary_skills']['HP']
-                                        stuff["PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
+                                        if self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val > \
+                                                self.combatants[self.cur_combatant]['secondary_skills']['MAX HP']:
+                                            val = self.combatants[self.cur_combatant]['secondary_skills']['MAX HP'] - \
+                                                  self.combatants[self.cur_combatant]['secondary_skills']['HP']
+                                        stuff[
+                                            "PRETEXT"] += f"{self.cur_combatant} healed {val} HP from the {e} - {self.combatants[self.cur_combatant]['secondary_skills']['HP'] + val} HP\n"
                                     c["secondary_skills"][effect] += val
                                 else:
                                     continue
@@ -516,7 +527,8 @@ class GUI:
                 result["attributes"][b_split[0]] += b_split[1]
 
         for cmbt_skill in self.combat_skills.keys():
-            result["combat_skills"][cmbt_skill] = self.calc_base(result["attributes"], self.combat_skills[cmbt_skill]["eq"])
+            result["combat_skills"][cmbt_skill] = self.calc_base(result["attributes"],
+                                                                 self.combat_skills[cmbt_skill]["eq"])
 
         for skill in self.skills.keys():
             result["skills"][skill] = self.calc_base(result["attributes"], self.skills[skill]["eq"])
@@ -525,7 +537,8 @@ class GUI:
             if secondary in enemy:
                 result["secondary_skills"][secondary] = enemy[secondary]
             else:
-                result["secondary_skills"][secondary] = self.calc_base(result["attributes"], self.secondary[secondary]["eq"])
+                result["secondary_skills"][secondary] = self.calc_base(result["attributes"],
+                                                                       self.secondary[secondary]["eq"])
             if secondary == "AP":
                 if result["secondary_skills"][secondary] < 5:
                     result["secondary_skills"]["AP"] = 5
@@ -573,7 +586,7 @@ class GUI:
 
         attributes = {key: attributes[key] for key in attributes.keys()}
         for key in attributes:
-            eq = eq.replace("{"+key+"}", str(attributes[key]))
+            eq = eq.replace("{" + key + "}", str(attributes[key]))
         exec("self.temp_calc=" + eq)
         return self.temp_calc
 
@@ -680,7 +693,8 @@ class GUI:
         btn_save_stats = Button(self.stat_frame, text="Save", command=save_stats)
         btn_clear_all = Button(self.stat_frame, text="Clear All", command=clear_all)
         btn_reroll = Button(self.stat_frame, font="courier 10 bold", bg="black", fg="red",
-                            text="COMBAT", command=self.skirmish_menu, activebackground="#302d2d", activeforeground="red")
+                            text="COMBAT", command=self.skirmish_menu, activebackground="#302d2d",
+                            activeforeground="red")
 
         btn_save_stats.place(y=330, x=30, anchor=CENTER)
         btn_clear_all.place(y=330, x=110, anchor=CENTER)
@@ -691,6 +705,7 @@ class GUI:
         def mv_btn(name, color):
             # Move selected combatant to the appropriate side
             nom = name.get()
+            nm = None
             if "FACTION" in self.all_combatants[nom]:
                 new_combatant = self.generate_enemy(nom)
                 if "NAMES" in self.enemies[nom]:
@@ -735,10 +750,10 @@ class GUI:
         self.red_list.bind("<<ListboxSelect>>", lambda event, color="r": on_select(event, color))
         self.blue_list.bind("<<ListboxSelect>>", lambda event, color="b": on_select(event, color))
 
-#        labels = list()
-#        for t in range(len(test)):
-#            labels.append(Label(self.stat_frame, text=test[t]))
-#            labels[t].pack()
+        #        labels = list()
+        #        for t in range(len(test)):
+        #            labels.append(Label(self.stat_frame, text=test[t]))
+        #            labels[t].pack()
         self.stat_frame.grid(row=0, column=1)
         self.blue_list.grid(row=0, column=0)
         self.red_list.grid(row=0, column=2)
@@ -748,7 +763,7 @@ class GUI:
         s_win = Toplevel(self.root)
         s_win.geometry("800x600")
         s_win.title("Skirmish")
-        
+
         s_frame = LabelFrame(s_win, padx=10, pady=10)
         s_frame.pack()
 
@@ -762,7 +777,8 @@ class GUI:
             c_listbox.delete(0, END)
             for name, d in skirm.combatant_list.items():
                 c_listbox.insert(END, name)
-            header_label.config(text=f"TURN: {skirm.turn}\n{list(skirm.combatant_list.keys())[skirm.turn % len(skirm.combatant_list)]}'s turn.")
+            header_label.config(
+                text=f"TURN: {skirm.turn}\n{list(skirm.combatant_list.keys())[skirm.turn % len(skirm.combatant_list)]}'s turn.")
 
         menu_bar = Menu(s_win)
         game_menu = Menu(menu_bar, tearoff=0)
@@ -792,7 +808,7 @@ class GUI:
         info_frame.grid(row=1, column=0, columnspan=2)
         info_font = "courier 10"
 
-        attacker_name = Label(info_frame, text=skirm.cur_combatant, font=info_font+" bold underline")
+        attacker_name = Label(info_frame, text=skirm.cur_combatant, font=info_font + " bold underline")
         defender_name = Label(info_frame, text="")
         attacker_labels = dict()
         attacker_entries = dict()
@@ -891,10 +907,13 @@ class GUI:
             for dis in range(len(display)):
                 # Weapon Skill
                 if dis == 2:
-                    labels["SKILL"] = Label(info_frame, text=f"{skirm.weapon_dict[skirm.combatants[n]['WEAPON']]['SKILL']}:", font=info_font)
+                    labels["SKILL"] = Label(info_frame,
+                                            text=f"{skirm.weapon_dict[skirm.combatants[n]['WEAPON']]['SKILL']}:",
+                                            font=info_font)
 
                     entries["SKILL"] = Entry(info_frame, width=4, font=info_font)
-                    entries["SKILL"].insert(INSERT, str(skirm.combatants[n]["combat_skills"][skirm.weapon_dict[skirm.combatants[n]['WEAPON']]['SKILL']]))
+                    entries["SKILL"].insert(INSERT, str(skirm.combatants[n]["combat_skills"][
+                                                            skirm.weapon_dict[skirm.combatants[n]['WEAPON']]['SKILL']]))
                     labels["SKILL"].place(x=x_offset, y=y_offset + (dis + 1) * 21)
                     entries["SKILL"].place(x=x_offset + 90, y=y_offset + (dis + 1) * 21)
                     entries["SKILL"].bind("<KeyRelease>", lambda event, name="SKILL": stat_change(event, name))
@@ -909,12 +928,12 @@ class GUI:
                     else:
                         if display[dis] == "WEAPON":
                             entries[display[dis]] = AutocompleteCombobox(info_frame, width=18, font=info_font,
-                                                                  completevalues=list(skirm.weapon_dict.keys()))
+                                                                         completevalues=list(skirm.weapon_dict.keys()))
                             entries[display[dis]].bind("<KeyRelease>",
                                                        lambda event, name=display[dis]: auto_complete_hack(event, name))
                         elif display[dis] == "ARMOR":
                             entries[display[dis]] = AutocompleteCombobox(info_frame, width=18, font=info_font,
-                                                                      completevalues=list(skirm.armor_dict.keys()))
+                                                                         completevalues=list(skirm.armor_dict.keys()))
                             entries[display[dis]].bind("<KeyRelease>",
                                                        lambda event, name=display[dis]: auto_complete_hack(event, name))
                         else:
@@ -923,7 +942,7 @@ class GUI:
                                                        lambda event, name=display[dis]: stat_change(event, name))
                         entries[display[dis]].insert(INSERT, str(skirm.combatants[n][display[dis]]))
                     labels[display[dis]].place(x=x_offset, y=y_offset + (dis + 1) * 21)
-                    entries[display[dis]].place(x=x_offset+90, y=y_offset + (dis + 1) * 21)
+                    entries[display[dis]].place(x=x_offset + 90, y=y_offset + (dis + 1) * 21)
 
 
                 else:
@@ -931,15 +950,16 @@ class GUI:
                     for c in check:
                         if display[dis] in skirm.combatants[n][c]:
                             labels[display[dis]] = Label(info_frame,
-                                                                  text=f"{display[dis]}:",
-                                                                  font=info_font)
+                                                         text=f"{display[dis]}:",
+                                                         font=info_font)
                             entries[display[dis]] = Entry(info_frame, width=4, font=info_font)
                             entries[display[dis]].insert(INSERT, str(skirm.combatants[n][c][
-                                display[dis]]))
+                                                                         display[dis]]))
                             labels[display[dis]].place(x=x_offset, y=y_offset + (dis + 1) * 21)
                             entries[display[dis]].place(x=x_offset + 90, y=y_offset + (dis + 1) * 21)
 
-                            entries[display[dis]].bind("<KeyRelease>", lambda event, name=display[dis]: stat_change(event, name))
+                            entries[display[dis]].bind("<KeyRelease>",
+                                                       lambda event, name=display[dis]: stat_change(event, name))
 
         display_info(skirm.cur_combatant, 10, 10)
 
@@ -965,7 +985,8 @@ class GUI:
         actions = ["<Choose Action>", "Attack Target", "Update Flags"]
         selected_action = StringVar(s_frame)
         selected_action.set(actions[0])
-        action_menu = OptionMenu(s_frame, selected_action, *actions, command=lambda event, a=selected_action: action_select(event, a))
+        action_menu = OptionMenu(s_frame, selected_action, *actions,
+                                 command=lambda event, a=selected_action: action_select(event, a))
         action_menu.grid(row=0, column=2)
         c_listbox.grid(row=1, column=2)
 
@@ -979,9 +1000,10 @@ class GUI:
                 if len(stuff) == 1:
                     hit_chance_label.config(text=f"{stuff['PRETEXT']}\nWAITING FOR INPUT...")
                 else:
-                    hit_chance_label.config(text=f"{stuff['PRETEXT']}{skirm.cur_combatant} is attacking {defender_name.cget('text')}\n"
-                                             f"Using the {skirm.combatants[skirm.cur_combatant]['WEAPON']} "
-                                             f"the chance to hit is {int(stuff['CTH']) + skirm.hit_mod} ({stuff['CTH']} + ({skirm.hit_mod}))")
+                    hit_chance_label.config(
+                        text=f"{stuff['PRETEXT']}{skirm.cur_combatant} is attacking {defender_name.cget('text')}\n"
+                             f"Using the {skirm.combatants[skirm.cur_combatant]['WEAPON']} "
+                             f"the chance to hit is {int(stuff['CTH']) + skirm.hit_mod} ({stuff['CTH']} + ({skirm.hit_mod}))")
 
             else:
                 hit_chance_label.config(text="WAITING FOR INPUT...")
@@ -994,18 +1016,19 @@ class GUI:
                 case "BG" | "SG" | "AR":
                     eq = f"{self.ammo[wd['AMMO']]['DMG']}+{wd['DB']}+{wd['DMG']}"
 
-            ap_label.config(text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
+            ap_label.config(
+                text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
             roll_dmg_eq_label.config(text=eq)
             xp_label.config(text=f"XP: {skirm.temp_xp}")
-
 
         def start_combat():
             start_btn.config(text="NEXT TURN >", command=next_turn)
             stuff = skirm.calc_turn(skirm.cur_combatant, defender_name.cget("text"), update=True)
             print(stuff)
-            hit_chance_label.config(text=f"{stuff['PRETEXT']}{skirm.cur_combatant} is attacking {defender_name.cget('text')}\n"
-                                                        f"Using the {skirm.combatants[skirm.cur_combatant]['WEAPON']} "
-                                                        f"the chance to hit is {int(stuff['CTH']) + skirm.hit_mod} ({stuff['CTH']} + ({skirm.hit_mod}))")
+            hit_chance_label.config(
+                text=f"{stuff['PRETEXT']}{skirm.cur_combatant} is attacking {defender_name.cget('text')}\n"
+                     f"Using the {skirm.combatants[skirm.cur_combatant]['WEAPON']} "
+                     f"the chance to hit is {int(stuff['CTH']) + skirm.hit_mod} ({stuff['CTH']} + ({skirm.hit_mod}))")
             hit_chance_label.place(x=5, y=5)
 
             wd = skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]
@@ -1076,7 +1099,8 @@ class GUI:
             weapon_skill = skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]["SKILL"]
             target = skirm.combatants[skirm.cur_combatant]["combat_skills"][weapon_skill] + skirm.hit_mod
             skirm.temp_ap -= int(skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]["WEAPON"]]["AP"])
-            ap_label.config(text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
+            ap_label.config(
+                text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
             if die_roll <= target:
                 print("HIT")
                 hit_miss_label.config(text="HIT", fg="green")
@@ -1108,9 +1132,10 @@ class GUI:
             total_dmg = sum([tools.roll(i)[1] for i in true_eq.split("+")])
 
             # Resistances
-            (dt, dr) = skirm.armor_dict[skirm.combatants[defender_name.cget("text")]["ARMOR"]][wd["DMG TYPE"]].split("/")
+            (dt, dr) = skirm.armor_dict[skirm.combatants[defender_name.cget("text")]["ARMOR"]][wd["DMG TYPE"]].split(
+                "/")
             dt = int(dt)
-            dr = int(dr)/100
+            dr = int(dr) / 100
 
             n = math.floor(total_dmg * dr)
             total_dmg -= dt
@@ -1132,7 +1157,7 @@ class GUI:
             defender_entries["HP"].delete(0, END)
             defender_entries["HP"].insert(0, str(int(hp) - total_dmg))
             hit_chance_label.config(text=hit_chance_label.cget("text") +
-            f"\n{skirm.cur_combatant} did {total_dmg} ({total_dmg + n + dt} - {dt} - {n}) damage to {defender_name.cget('text')} putting them at {hp -total_dmg}")
+                                         f"\n{skirm.cur_combatant} did {total_dmg} ({total_dmg + n + dt} - {dt} - {n}) damage to {defender_name.cget('text')} putting them at {hp - total_dmg}")
             skirm.combatants[defender_name.cget("text")]["secondary_skills"]["HP"] -= total_dmg
             if dead:
                 text = hit_chance_label.cget("text") + f"\n{defender_name.cget('text')} is dead. {xp_gain} XP gained."
@@ -1169,7 +1194,6 @@ class GUI:
         roll_dmg_entry.place(x=570, y=150)
         roll_dmg_enter_btn.place(x=606, y=150, height=20)
         roll_dmg_eq_label.place(x=480, y=165)
-
 
     def start(self):
         self.root.title("FNT MEGA COMBAT HUB")
