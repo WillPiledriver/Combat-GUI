@@ -132,19 +132,21 @@ class Skirmish:
                 },
                 "jet": {
                     "AP": 2,
-                    "S": 1,
-                    "P": 1,
-                    "INSTANT": True
+                    "MD": 1,
+                    "HIT": 5,
+                    "SQ": 5,
+                    "INSTANT": True,
+                    "COOLDOWN": 2
                 },
                 "buffout": {
-                    "S": 2,
-                    "E": 3,
-                    "A": 2,
+                    "MD": 2,
+                    "MAX HP": 15,
+                    "DR": 10,
                     "INSTANT": True
                 },
                 "psycho": {
                     "DMG": 1.25,
-                    "A": 2,
+                    "DT": 2,
                     "INSTANT": True
                 },
                 "super stimpack": {
@@ -158,9 +160,7 @@ class Skirmish:
                 }
             }
 
-        # TODO: incorporate SPECIAL and DR into combat effects and detect random values
-        # TODO: calculate all skills on the fly using calc_base + code from prep functions or recalculate them from -
-        # TODO: calc_turn if attributes have changed
+        # TODO: detect random values in effects
         # TODO: change turn order when SQ is changed
 
         self.con = Constant()
@@ -855,15 +855,35 @@ class GUI:
                     entry.delete("1.0", END)
                     entry.insert("1.0", json.dumps(skirm.combatants[com][name]))
 
+
+                    # Check for INSTANT effects
                     for k, d in skirm.combatants[com][name].items():
                         if "INSTANT" in d:
                             if d["INSTANT"]:
-                                # TODO: something
-                                pass
+                                to_delete = ["MAX HP", "HP"]
+                                for t in to_delete:
+                                    if t in d:
+                                        if "COOLDOWN" in d:
+                                            skirm.combatants[com]["secondary_skills"][t] += int(d[t])
+                                            skirm.combatants[com][name][k]["COOLDOWN"] -= 1
+                                            if skirm.cur_combatant == com:
+                                                attacker_entries["HP"].delete(0, END)
+                                                attacker_entries["HP"].insert(0,
+                                                                              skirm.combatants[com]["secondary_skills"][
+                                                                                  "HP"])
+                                            else:
+                                                defender_entries["HP"].delete(0, END)
+                                                defender_entries["HP"].insert(0,
+                                                                              skirm.combatants[com]["secondary_skills"][
+                                                                                  "HP"])
+                                        else:
+                                            skirm.combatants[com]["secondary_skills"][t] += int(d[t])
+                                            del skirm.combatants[com][name][k][t]
                             else:
                                 # do nothing
                                 pass
-
+                    entry.delete("1.0", END)
+                    entry.insert("1.0", json.dumps(skirm.combatants[com][name]))
                     update_everything()
                 except json.decoder.JSONDecodeError:
                     pass
@@ -1135,11 +1155,23 @@ class GUI:
             (dt, dr) = skirm.armor_dict[skirm.combatants[defender_name.cget("text")]["ARMOR"]][wd["DMG TYPE"]].split(
                 "/")
             dt = int(dt)
-            dr = int(dr) / 100
+            dr = int(dt)
+
+            for dr_search, d in skirm.combatants[defender_name.cget("text")]["eff"].items():
+                if "DR" in d:
+                    dr += int(d["DR"])
+                if "DT" in d:
+                    dt += int(d["DT"])
+
+            dr = dr / 100
 
             n = math.floor(total_dmg * dr)
             total_dmg -= dt
             total_dmg -= n
+
+            for k, d in skirm.combatants[skirm.cur_combatant]["eff"].items():
+                if "DMG" in d:
+                    total_dmg = math.ceil(total_dmg * d["DMG"])
 
             if total_dmg < 0:
                 total_dmg = 0
