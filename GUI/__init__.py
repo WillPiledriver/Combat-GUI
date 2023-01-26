@@ -161,7 +161,6 @@ class Skirmish:
             }
 
         # TODO: detect random values in effects
-        # TODO: change turn order when SQ is changed
 
         self.con = Constant()
         self.turn = 0
@@ -880,7 +879,6 @@ class GUI:
                                             skirm.combatants[com]["secondary_skills"][t] += int(d[t])
                                             del skirm.combatants[com][name][k][t]
                             else:
-                                # do nothing
                                 pass
                     entry.delete("1.0", END)
                     entry.insert("1.0", json.dumps(skirm.combatants[com][name]))
@@ -1040,6 +1038,25 @@ class GUI:
                 text=f"AP: {skirm.temp_ap}\nCOST: {skirm.weapon_dict[skirm.combatants[skirm.cur_combatant]['WEAPON']]['AP']}")
             roll_dmg_eq_label.config(text=eq)
             xp_label.config(text=f"XP: {skirm.temp_xp}")
+
+            # Change SQ
+            temp_com = copy.deepcopy(skirm.combatants)
+
+            for com, d in temp_com.items():
+                for eff, dd in d["eff"].items():
+                    if "SQ" in dd:
+                        temp_com[com]["secondary_skills"]["SQ"] += dd["SQ"]
+
+            skirm.combatant_list = OrderedDict(
+                sorted(temp_com.items(), key=lambda x: getitem(x[1]["secondary_skills"], "SQ"), reverse=True))
+
+            c_listbox.delete(0, END)
+            x = 0
+            for name, d in skirm.combatant_list.items():
+                c_listbox.insert(END, name)
+                if skirm.combatants[name]["secondary_skills"]["HP"] < 1:
+                    c_listbox.itemconfig(x, bg="#fa9898")
+                x += 1
 
         def start_combat():
             start_btn.config(text="NEXT TURN >", command=next_turn)
