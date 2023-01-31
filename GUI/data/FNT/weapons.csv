@@ -7,9 +7,9 @@ brass knuckles,3,U,1d6,{MD},1,,,N
 bone saw,4,M,1d10,5+{MD},1,,,N
 beretta,4,SG,6,0,17,9mm,18,N
 louisville slugger,4,M,2d6,{MD},1,,,N
-wattz 1000 laser pistol,4,EW,3d6,4,12,,2,L
+wattz 1000 laser pistol,3,EW,2d8,3,12,,5,L
 broken saw,3,M,1d12,5+{MD},1,,,N
-lizard bite,3,U,1d12,3+{MD},1,,,N
+lizard bite,3,U,1d10,3+{MD},1,,,N
 lizard claws,2,U,1d6,{MD},1,,,N
 smirnoffs rifle,3,SG,1d12,0,40,9mm,20,N
 bile,5,TH,1d8,2,15,,,N
@@ -19,16 +19,19 @@ spiked knuckles,3,U,1d10,4+{MD},1,,,N
 bite,4,U,1d12,{MD}+2,1,,,N
 pulse rifle,5,EW,1d12,6,20,,,L
 laser rifle,6,EW,3d6,0,30,,,L
-m16a2,6,SG,6,0,40,5.56mm,,N
+m16a2,6,SG,3,0,40,5.56mm,,N
 wakizashi blade,3,M,1d12,4+{MD},1,,,N
-combat knife,3,M,1d12,3+{MD},1,,,N
+combat knife,3,M,1d10,3+{MD},1,,,N
 m2,1,SG,3,0,30,.50 cal,30,N
 hanyang 88,5,SG,5,0,75,7.62mm,5,N
 chinese assault rifle,4,SG,1,0,25,5.56mm,20,N
 radroach tackle,3,U,1d3,0,2,,,N
 radroach bite,2,U,1d2,0,1,,,N
-crude bow,3,AR,2,0,12,crude arrow,1,N
-sanzen kousei,3,M,1d8,{MD},1,,,N
+crude bow (crude),3,AR,2,0,12,crude arrow,1,N
+crude bow (broadhead),3,AR,2,0,12,broadhead arrow,1,N
+recurve bow (crude),3,AR,5,0,12,crude arrow,1,N
+recurve bow (broadhead),3,AR,5,0,12,broadhead arrow,1,N
+sanzen kousei,3,M,1d10,{MD}+3,1,,,N
 m1911,4,SG,3,0,12,.45 acp,7,N
 paperweight,3,M,1d12,2,1,,,N
 screwdriver,3,M,1d6,0,1,,,N
@@ -37,3 +40,11 @@ turret gun,3,SG,2,0,20,5.56mm,20,N
 lawn mower blade,4,M,1d8,{MD}+3,1,,,N
 bloodbug proboscis,3,U,1d6,{MD}+2,1,,,N
 hunting rifle,5,SG,0,0,30,.308 winchester,5,N
+molotov,5,TH,1d12,3,10,,,N
+frag grenade,5,TH,3d8,0,10,,,E
+dog bite,4,U,1d8,{MD}+2,1,,,N
+dog tackle,3,U,1d6,{MD},,,,N
+lords justice,4,SG,4,0,10,blessed .44,6,N
+lizard spit,5,TH,1d8,1,10,,,N
+small lizard bite,3,U,1d6,{MD},1,,,N
+greedos laser pistol,3,EW,2d8,8,7,,5,L

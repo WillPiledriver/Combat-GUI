@@ -1179,6 +1179,21 @@ class GUI:
                     dr += int(d["DR"])
                 if "DT" in d:
                     dt += int(d["DT"])
+                    
+            try:
+                if int(self.ammo[wd["AMMO"]]["IGN_ARM"]) == 1:
+                    dt = 0
+                    dr = 0
+                else:
+                    dt += int(self.ammo[wd["AMMO"]]["DT"])
+                    dr += int(self.ammo[wd["AMMO"]]["DR"])
+            except KeyError:
+                pass
+
+            if dt < 0:
+                dt = 0
+            if dr < 0:
+                dr = 0
 
             dr = dr / 100
 

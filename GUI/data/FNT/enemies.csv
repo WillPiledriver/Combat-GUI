@@ -1,6 +1,6 @@
 NAME,FACTION,S,P,E,C,I,A,L,BONUS,WEAPON,ARMOR,XP,LEVEL,NAMES
 molerat,creatures,3,2,3,1,1,5,5,U 10-20,molerat bite,hide,25,1,"One-Eyed Molerat,Ugly Molerat,Molerat With Huge Balls,Cross-Eyed Molerat,Molerat,Adorable Molerat,Sexy Molerat,Molerat Wearing a Top hat,Molerat Covered in Fleas and Ticks,Molerat Wearing a Pirate Hat,Hairy Molerat,Really Hairy Molerat,Molerat in Heat,Molerat With Terminal Cancer,MAGA Molerat,Flat Earth Molerat,Stinky Molerat"
-scumbag,scum,3-5,4-5,5-6,1,3,5-6,6,"SG 25,M 25-35,U 25-35","knife,.22 pistol,switchblade,brass knuckles","leather jacket,leather jacket,leather armor",50,1,"Republican Scumbag,Scumbag With a Do-Rag,Scumbag With Pepperoni Nipples,Bearded Scumbag,Musclebound Scumbag,Scumbag With a Half-Burned Face,Scumbag in a Wheelchair,Scumbag Wearing a Brahmin Skull,Scumbag That Has a British Accent,Scumbag That Has an Australian Accent,Scumbag,Scumbag That Seems Like a Pretty Cool Dude,Scumbag That Has a Punchable Face,Fat Scumbag,Obese Scumbag,Totally Normal Scumbag (Dont Worry About It)"
+scumbag,scum,3-5,4-5,5-6,1,3,5-6,6,"SG 25,M 25-35,U 25-35","knife,.22 pistol,switchblade,brass knuckles","leather jacket,leather jacket,leather armor",50,1,"Republican Scumbag,Scumbag With a Do-Rag,Scumbag With Pepperoni Nipples,Bearded Scumbag,Musclebound Scumbag,Scumbag With a Half-Burned Face,Scumbag in a Wheelchair,Scumbag Wearing a Brahmin Skull,British Scumbag,Australian Scumbag,Scumbag,Scumbag That Seems Like a Pretty Cool Dude,Fat Scumbag,Obese Scumbag,Totally Normal Scumbag"
 test,debug,10,10,10,10,10,10,10,"MD 100,AC 100,M 100",knife,tough hide,100,1,
 jailbot,ai,6,6,4,1,4,4,3,,switchblade,being a robot,100,1,
 wally,wally,5,4,3,1,1,3,2,"M 25,U 20","switchblade,brass knuckles,knife",leather jacket,100,1,
@@ -18,6 +18,9 @@ radroach,creatures,1-2,1-2,1-3,1,1,3-4,4,U 10-20,"radroach tackle,radroach bite"
 molerat alpha,creatures,5,3-5,5,1,1,6,5,"U 20-30,MD 3",molerat bite,tough hide,75,1,
 molerat queen,creatures,6,6,6,1,1,6,5,"U 20,TH 20,HP 15","bite,bile",tough hide,150,1,
 turret,ai,1,9,5,1,1,9,5,"BG 25,SG 35",turret gun,being a robot,100,1,
-bloodbug,creatures,3-4,3-5,3-5,1,1,7,5,"U 30-40,HP -10",bloodbug proboscis ,bloodbug thorax,30,1,"Bloody Bloodbug,One-Eyed Bloodbug,Juvenile Bloodbug,Bloodbug with no legs"
+bloodbug,creatures,3-4,3-5,3-5,1,1,7,5,"U 30-40,HP -10",bloodbug proboscis,bloodbug thorax,30,1,"Bloody Bloodbug,One-Eyed Bloodbug,Juvenile Bloodbug,Bloodbug with no legs"
 scumbag sniper,scum,3,6-7,3-4,1,3,7-8,7,"SG 25-35,SQ 5",hunting rifle,leather jacket,75,1,"Scum Sniper,Scumbag Marksman,Scumbag Markswoman,Scum Assassin"
 scumdog,scum,6-7,6-7,5-7,1,5,5-8,5,"SG 30-40,M 20-30,U 20-35","louisville slugger,spiked knuckles,m16a2",leather armor,150,2,"Scumdog Millionaire,Buff Scumdog,Very Angry Scumdog,6ft 5in Scumdog,Half-Mutant Scumdog"
+scumbag archer,scum,4,7,3,1,3,5-6,7,AR 25-35,"crude bow (crude),crude bow (broadhead),recurve bow (crude),recurve bow (broadhead)",leather jacket,50,1,"Scumbag Archer,Scumbag with a Bow,Scumbag Hunter,Scumbag Falconer,Scumbag Scout"
+feral dog,creatures,3-4,3-4,3-4,1,1-2,4-5,3,U 15-25,"dog bite,dog tackle",hide,30,1,"Three-Legged Dog,Rabid Dog,Feral Dog,Mangy Dog,Feral Dog with One Ear,Feral Dog with no Tail"
+small lizard,creatures,3-4,3-4,3-4,1,1,2-3,3,"U 20-30,TH 25-35","lizard spit,small lizard bite",lizard hide,30,1,
