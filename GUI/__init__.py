@@ -1172,7 +1172,7 @@ class GUI:
             (dt, dr) = skirm.armor_dict[skirm.combatants[defender_name.cget("text")]["ARMOR"]][wd["DMG TYPE"]].split(
                 "/")
             dt = int(dt)
-            dr = int(dt)
+            dr = int(dr)
 
             for dr_search, d in skirm.combatants[defender_name.cget("text")]["eff"].items():
                 if "DR" in d:
