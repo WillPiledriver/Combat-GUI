@@ -1,5 +1,5 @@
 import re
-import json
+import csv
 import random as rand
 import requests
 import json
@@ -20,6 +20,11 @@ def roll(s, mod=0):
 def ask_randomorg(num, dt):
     result = requests.get(f"https://www.random.org/integers/?num={num}&min=1&max={dt}&col=1&base=10&format=plain&rnd=new").content.split()
     return [int(x) for x in result]
+
+
+def csv_to_dict(path, name):
+    c = csv.DictReader(open(path))
+    return {row[name]: {x: row[x] for x in row if not x == name} for row in c}
 
 
 def randomorg_roll(s, mod=0):

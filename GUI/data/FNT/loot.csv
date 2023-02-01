@@ -1,0 +1,43 @@
+NAME,CATEGORY,RARITY,VALUE,WEIGHT,AMOUNT
+9mm,ammo,COMMON,4,20,3-5
+.22 cal,ammo,COMMON,2,20,3-5
+energy cell,ammo,UNCOMMON,15,10,1-4
+5.56mm,ammo,RARE,7,5,3-5
+.50 cal,ammo,MYTHIC,40,1,1
+.308 winchester,ammo,UNCOMMON,7,10,2-3
+.45 acp,ammo,UNCOMMON,7,10,2-3
+broadhead arrow,ammo,RARE,30,5,1
+nikola tesla and you,book,UNIQUE,1000,1,1
+tumblers today,book,UNIQUE,1000,1,1
+big book of science,book,UNIQUE,1000,1,1
+grognak the barbarian,book,UNIQUE,1000,1,1
+todays physician,book,UNIQUE,1000,1,1
+guns and bullets,book,UNIQUE,1000,1,1
+deans electronics,book,UNIQUE,1000,1,1
+dc journal of internal medicine,book,UNIQUE,1000,1,1
+pugilism illustrated,book,UNIQUE,1000,1,1
+lying congressional style,book,UNIQUE,1000,1,1
+US Army: 30 Handy Flamethrower Recipes,book,UNIQUE,1000,1,1
+stimpack,chem,RARE,150,5,1
+jet,chem,EPIC,200,1,1
+buffout,chem,EPIC,200,1,1
+caps,currency,GUARANTEED,1,50,5-10
+doubloon,currency,UNCOMMON,10,10,1
+end zone credit,currency,EPIC,100,1,1
+nuka cola,food,RARE,50,5,1-3
+dirty water,food,COMMON,15,10,1
+purified water,food,UNCOMMON,30,7,1
+scrap metal,junk,JUNK,25,5,1-3
+fusion battery,junk,RARE,100,1,1
+m1911,weapon,RARE,300,1,1
+combat knife,weapon,RARE,100,1,1
+cram,food,UNCOMMON,15,15,1
+fancy lad snack cakes,food,UNCOMMON,15,15,1
+blamco mac and cheese,food,UNCOMMON,15,15,1
+yumyum deviled eggs,food,UNCOMMON,15,15,1
+squirrel on a stick,food,UNCOMMON,15,15,1
+brahmin steak,food,RARE,35,5,1
+Rad-x,chem,RARE,100,2,1
+RadAway,chem,EPIC,200,1,1
+Psycho,chem,EPIC,200,1,1
+Sunset Sarsaparilla,food,RARE,75,5,1-3
