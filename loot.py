@@ -66,11 +66,21 @@ class LootTable:
         return LootTable(self.all_loot + other.all_loot)
 
     def search_by_category(self, category):
-        filtered_items = [item for item in self.all_loot if item.category == category]
+        if isinstance(category, str):
+            filtered_items = [item for item in self.all_loot if item.category == category]
+        elif isinstance(category, list):
+            filtered_items = [item for item in self.all_loot if item.category in category]
+        else:
+            raise ValueError("Invalid category argument. Must be either a string or a list of strings.")
         return LootTable(filtered_items)
 
     def search_by_rarity(self, rarity):
-        filtered_items = [item for item in self.all_loot if item.rarity == rarity]
+        if isinstance(rarity, int):
+            filtered_items = [item for item in self.all_loot if item.rarity == rarity]
+        elif isinstance(rarity, list):
+            filtered_items = [item for item in self.all_loot if item.rarity in rarity]
+        else:
+            raise ValueError("Invalid rarity argument. Must be either an int or a list of ints.")
         return LootTable(filtered_items)
 
 
@@ -82,6 +92,7 @@ class Chest:
     def open(self, rarity=Loot.JUNK, ensure_rarity=True):
         multiples = ["currency", "ammo"]
         good = False
+        count = 0
         while not good:
             items = []
             filtered_items = [item for item in self.loot_table.all_loot if item.rarity <= rarity]
@@ -105,13 +116,15 @@ class Chest:
                         total_weight -= item.weight
                         filtered_items.remove(item)
                         break
-            if good:
-                return items
-            elif not ensure_rarity:
+            count += 1
+            if count >= 250:
+                count = 0
+                rarity -= 1
+            if good or not ensure_rarity:
                 return items
 
 
 for i in range(100):
-    for l in Chest(LootTable(all_items), 5).open(Loot.RARE, False):
+    for l in Chest(LootTable(all_items).search_by_rarity([Loot.RARE, Loot.UNCOMMON]), 5).open(Loot.RARE, False):
         print(l)
     print()
