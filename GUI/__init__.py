@@ -22,6 +22,154 @@ def csv_to_dict(path, name):
 root_path = os.path.dirname(__file__) + "\\data\\FNT\\"
 
 
+class Weapon:
+    def __init__(self, name, ap, skill, dmg, db, range, dmg_type, ammo=None, rounds=None):
+        self.name = name
+        self.ap = int(ap)
+        self.skill = skill
+        self.dmg = dmg
+        self.db = db
+        self.range = range
+        self.ammo = ammo
+        self.rounds = rounds
+        self.dmg_type = dmg_type
+
+
+class WeaponList:
+    def __init__(self, path):
+        self.weapons = {}
+        weapons_data = csv_to_dict(path, "NAME")
+        for weapon_name, weapon_info in weapons_data.items():
+            w = Weapon(weapon_name,
+                       weapon_info["AP"],
+                       weapon_info["SKILL"],
+                       weapon_info["DMG"],
+                       weapon_info["DB"],
+                       weapon_info["RANGE"],
+                       weapon_info["DMG TYPE"],
+                       ammo=weapon_info.get("AMMO"),
+                       rounds=weapon_info.get("ROUNDS"))
+            self.weapons[weapon_name.lower()] = w
+
+    def __getitem__(self, name):
+        if name in self.weapons:
+            return self.weapons[name]
+        raise KeyError(f"{name} not found in WeaponList")
+
+
+class Armor:
+    def __init__(self, name, ac, resistances, bonus):
+        self.name = name
+        self.ac = ac
+        self.resistances = resistances
+        self.bonus = bonus
+
+    def get_r(self, dmg_type):
+        return self.resistances[dmg_type.upper()]
+
+
+class Helmet:
+    def __init__(self, name, ac, resistances, bonus):
+        self.name = name
+        self.ac = ac
+        self.resistances = resistances
+        self.bonus = bonus
+
+    def get_r(self, dmg_type):
+        return self.resistances[dmg_type.upper()]
+
+
+class ArmorList:
+    def __init__(self, path):
+        self.armors = {}
+        armors_data = csv_to_dict(path, "NAME")
+        r = "NLPE"
+        for armor_name, armor_info in armors_data.items():
+            resistances = dict()
+            for rr in r:
+                (dt, dr) = map(int, armor_info[rr].split("/"))
+                resistances[rr] = (dt, dr)
+            bonuses = armor_info["BONUS"].split(",")
+            bonus_dict = {}
+            for bonus in bonuses:
+                if len(bonus) > 0:
+                    key, value = bonus.split(" ")
+                    bonus_dict[key] = int(value)
+            a = Armor(armor_name,
+                      armor_info["AC"],
+                      resistances,
+                      bonus_dict)
+            self.armors[armor_name.lower()] = a
+
+    def __getitem__(self, name):
+        try:
+            return self.armors[name.lower()]
+        except KeyError:
+            raise KeyError(f"{name} not found in ArmorList")
+
+
+class HelmetList:
+    def __init__(self, path):
+        self.helmets = {}
+        helmets_data = csv_to_dict(path, "NAME")
+        r = "NLPE"
+        for helmet_name, helmet_info in helmets_data.items():
+            resistances = dict()
+            for rr in r:
+                (dt, dr) = map(int, helmet_info[rr].split("/"))
+                resistances[rr] = (dt, dr)
+            bonuses = helmet_info["BONUS"].split(",")
+            bonus_dict = {}
+            for bonus in bonuses:
+                if len(bonus) > 0:
+                    key, value = bonus.split(" ")
+                    bonus_dict[key] = int(value)
+            h = Helmet(helmet_name,
+                       helmet_info["AC"],
+                       resistances,
+                       bonus_dict)
+            self.helmets[helmet_name.lower()] = h
+
+    def __getitem__(self, name):
+        try:
+            return self.helmets[name.lower()]
+        except KeyError:
+            raise KeyError(f"{name} not found in HelmetList")
+
+
+class Combatant:
+    def __init__(self, name, attributes, weapon, armor, helmet, bonus, faction=None, names=None, level=1, player_name=None, xp=0):
+
+        # names
+        if names is None:
+            self.name = name
+        else:
+            if len(names) > 0:
+                self.names = names.split(",")
+            else:
+                self.name = name
+
+        # Attributes
+        self.attributes = dict()
+        for k, d in attributes.items():
+            if isinstance(d, str):
+                match = re.match(r"(\d+)-(\d+)", d)
+                if match:
+                    x, y = map(int, match.groups())
+                    self.attributes[k] = random.randint(x, y)
+                else:
+                    try:
+                        self.attributes[k] = int(d)
+                    except ValueError:
+                        raise ValueError("Input must be either a single number string, or a string in the format 'x-y'")
+            elif isinstance(k, int):
+                self.attributes[k] = d
+            else:
+                raise ValueError("Input must be either an int or a string")
+
+        # Weapon
+
+
 class Skirmish:
     def __init__(self, comb, weapons, armors):
         self.combatants = copy.deepcopy(comb)
