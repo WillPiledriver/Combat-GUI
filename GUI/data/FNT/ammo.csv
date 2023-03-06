@@ -1,11 +1,13 @@
-NAME,AC,DR,DMG,IGN_ARM,DT
-.22 cal,0,0,1d6,0,0
-9mm,0,-5,1d8,0,0
-5.56mm,0,-10,1d10,0,-2
-.50 cal,-10,-20,1d20,0,0
-7.62mm,0,0,1d12,0,0
-.45 acp,-2,-5,1d8,0,-1
-crude arrow,0,0,1d6,0,-1
-.308 winchester,-2,-7,1d10,0,-3
-broadhead arrow,0,-5,1d10,0,-2
-blessed .44,-5,0,1d12,1,0
+NAME,AC,DR,DMG,IGN_ARM,DT,DMG_TYPE
+.22 cal,0,0,1d6,0,0,N
+9mm,0,-5,1d8,0,0,N
+5.56mm,0,-10,1d10,0,-2,N
+.50 cal,-10,-20,1d20,0,0,N
+7.62mm,0,0,1d12,0,0,N
+.45 acp,-2,-5,1d8,0,-1,N
+crude arrow,0,0,1d6,0,-1,N
+.308 winchester,-2,-7,1d10,0,-3,N
+broadhead arrow,0,-5,1d10,0,-2,N
+blessed .44,-5,0,1d12,1,0,N
+filibuster,-5,-8,2d10,0,-2,E
+buckshot,-5,-3,10d2,0,-2,N

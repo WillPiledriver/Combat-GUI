@@ -20,6 +20,12 @@ def csv_to_dict(path, name):
 
 
 root_path = os.path.dirname(__file__) + "\\data\\FNT\\"
+weapon_dict = csv_to_dict(root_path + "weapons.csv", "NAME")
+armor_dict = csv_to_dict(root_path + "armors.csv", "NAME")
+helmet_dict = csv_to_dict(root_path + "helmets.csv", "NAME")
+player_dict = csv_to_dict(root_path + "players.csv", "NAME")
+enemy_dict = csv_to_dict(root_path + "enemies.csv", "NAME")
+ammo_dict = csv_to_dict(root_path + "ammo.csv", "NAME")
 
 
 class Weapon:
@@ -35,26 +41,15 @@ class Weapon:
         self.dmg_type = dmg_type
 
 
-class WeaponList:
-    def __init__(self, path):
-        self.weapons = {}
-        weapons_data = csv_to_dict(path, "NAME")
-        for weapon_name, weapon_info in weapons_data.items():
-            w = Weapon(weapon_name,
-                       weapon_info["AP"],
-                       weapon_info["SKILL"],
-                       weapon_info["DMG"],
-                       weapon_info["DB"],
-                       weapon_info["RANGE"],
-                       weapon_info["DMG TYPE"],
-                       ammo=weapon_info.get("AMMO"),
-                       rounds=weapon_info.get("ROUNDS"))
-            self.weapons[weapon_name.lower()] = w
-
-    def __getitem__(self, name):
-        if name in self.weapons:
-            return self.weapons[name]
-        raise KeyError(f"{name} not found in WeaponList")
+class Ammo:
+    def __init__(self, name, ac, dr, dmg, dt, ign_arm, dmg_type):
+        self.name = name
+        self.ac = ac
+        self.dr = dr
+        self.dmg = dmg
+        self.dt = dt
+        self.ign_arm = ign_arm
+        self.dmg_type = dmg_type
 
 
 class Armor:
@@ -79,10 +74,68 @@ class Helmet:
         return self.resistances[dmg_type.upper()]
 
 
+class AmmoList:
+    def __init__(self, path=None, ad=None):
+        self.ammos = {}
+        if path is not None:
+            ammos_data = csv_to_dict(path, "NAME")
+        elif ad is not None:
+            ammos_data = ad
+        else:
+            raise ValueError("Must have path or dict for AmmoList")
+        for ammo_name, ammo_info in ammos_data.items():
+            a = Ammo(ammo_name,
+                     ammo_info["AC"],
+                     ammo_info["DR"],
+                     ammo_info["DMG"],
+                     ammo_info["DT"],
+                     ammo_info["IGN ARM"],
+                     ammo_info["DMG_TYPE"])
+            self.ammos[ammo_name.lower()] = a
+
+    def __getitem__(self, name):
+        try:
+            return self.ammos[name.lower()]
+        except KeyError:
+            raise KeyError(f"{name} not found in AmmoList")
+
+
+class WeaponList:
+    def __init__(self, path=None, weapons_dict=None):
+        self.weapons = {}
+        if path is not None:
+            weapons_data = csv_to_dict(path, "NAME")
+        elif weapons_dict is not None:
+            weapons_data = weapons_dict
+        else:
+            raise ValueError("Must have path or dict")
+        for weapon_name, weapon_info in weapons_data.items():
+            w = Weapon(weapon_name,
+                       weapon_info["AP"],
+                       weapon_info["SKILL"],
+                       weapon_info["DMG"],
+                       weapon_info["DB"],
+                       weapon_info["RANGE"],
+                       weapon_info["DMG TYPE"],
+                       ammo=weapon_info.get("AMMO"),
+                       rounds=weapon_info.get("ROUNDS"))
+            self.weapons[weapon_name.lower()] = w
+
+    def __getitem__(self, name):
+        if name in self.weapons:
+            return self.weapons[name]
+        raise KeyError(f"{name} not found in WeaponList")
+
+
 class ArmorList:
-    def __init__(self, path):
+    def __init__(self, path=None, armors_dict=None):
         self.armors = {}
-        armors_data = csv_to_dict(path, "NAME")
+        if path is not None:
+            armors_data = csv_to_dict(path, "NAME")
+        elif armors_dict is not None:
+            armors_data = armors_dict
+        else:
+            raise ValueError("Must have path or dict")
         r = "NLPE"
         for armor_name, armor_info in armors_data.items():
             resistances = dict()
@@ -109,9 +162,14 @@ class ArmorList:
 
 
 class HelmetList:
-    def __init__(self, path):
+    def __init__(self, path=None, helmets_dict=None):
         self.helmets = {}
-        helmets_data = csv_to_dict(path, "NAME")
+        if path is not None:
+            helmets_data = csv_to_dict(path, "NAME")
+        elif helmets_dict is not None:
+            helmets_data = helmets_dict
+        else:
+            raise ValueError("Must have path or dict")
         r = "NLPE"
         for helmet_name, helmet_info in helmets_data.items():
             resistances = dict()
@@ -139,6 +197,20 @@ class HelmetList:
 
 class Combatant:
     def __init__(self, name, attributes, weapon, armor, helmet, bonus, faction=None, names=None, level=1, player_name=None, xp=0):
+        self.combat_skills = {"AR": {"eq": "{S}+{P}+(2*{A})"},
+                              "SG": {"eq": "5+{P}+(3*{A})"},
+                              "BG": {"eq": "{S}+{E}+{A}"},
+                              "EW": {"eq": "{P}+{I}+{A}"},
+                              "U": {"eq": "30+2*({A}+{S})"},
+                              "M": {"eq": "20+2*({A}+{S})"},
+                              "TH": {"eq": "{S}+(3*{A})"}
+                              }
+        self.secondary = {"SQ": {"eq": "{A}+2*{P}"},
+                          "AP": {"eq": "({A}/2)+5"},
+                          "MD": {"eq": "{S}-5"},
+                          "CRIT": {"eq": "{L}"},
+                          "HP": {"eq": "15+{S}+(2*{E})"},
+                          }
 
         # names
         if names is None:
@@ -146,6 +218,7 @@ class Combatant:
         else:
             if len(names) > 0:
                 self.names = names.split(",")
+                rand.shuffle(self.names)
             else:
                 self.name = name
 
@@ -168,6 +241,110 @@ class Combatant:
                 raise ValueError("Input must be either an int or a string")
 
         # Weapon
+        if isinstance(weapon, str):
+            self.weapon = WeaponList(weapons_dict=weapon_dict)[weapon]
+        elif isinstance(weapon, Weapon):
+            self.weapon = weapon
+
+        # Armor
+        if isinstance(armor, str):
+            self.armor = ArmorList(armors_dict=armor_dict)[armor]
+        elif isinstance(armor, Armor):
+            self.armor = armor
+
+        # Helmet
+        if isinstance(helmet, str):
+            self.helmet = HelmetList(helmets_dict=helmet_dict)[helmet]
+        elif isinstance(helmet, Helmet):
+            self.helmet = helmet
+
+        # Bonus
+        bonuses = bonus.split(",")
+        self.bonuses = {}
+        for bonus in bonuses:
+            if len(bonus) > 0:
+                key, value = bonus.split(" ")
+                self.bonuses[key] = int(value)
+
+        # Others
+        self.faction = faction
+        self.level = level
+        self.player_name = player_name
+        self.xp = xp
+
+        # exec() hack
+        self.temp_num = 0
+        
+
+
+    def get_skill(self, name):
+        b = dict()
+        for k, d in self.bonuses.items():
+            b[k] = d
+        for k, d in self.armor.bonus.items():
+            if k in b:
+                b[k] += d
+            else:
+                b[k] = d
+        for k, d in self.helmet.bonus.items():
+            if k in b:
+                b[k] += d
+            else:
+                b[k] = d
+        # TODO: Effect bonuses
+
+        check = "SPECIAL"
+        special = dict()
+
+        for c in check:
+            if c in b:
+                special[c] = self.attributes[c] + b[c]
+            else:
+                special[c] = self.attributes[c]
+
+        temp_eqs = dict(**self.combat_skills, **self.secondary)
+
+        if name.upper() not in temp_eqs:
+            raise ValueError(f"Skill {name} not found in get_skill method.")
+
+        eq = temp_eqs[name.upper()]["eq"]
+
+        for s in check:
+            eq = eq.replace("{"+s+"}", str(special[s]))
+        exec(f"self.temp_num = {eq}")
+        if name.upper() in b:
+            self.temp_num += b[name.upper()]
+        return self.temp_num
+
+
+class CombatantList:
+    def __init__(self, players_dict, enemies_dict):
+        self.players = csv_to_dict(players_dict, "NAME")
+        self.enemies = csv_to_dict(enemies_dict, "NAME")
+
+        special = "SPECIAL"
+
+        self.combatants = dict()
+
+        for k, d in self.players.items():
+            # b = d["BONUS"].split(",")
+            # b = {k: int(d) for k, d in b.items()}
+            self.combatants[k] = Combatant(k,
+                                           {"S": d["S"],
+                                            "P": d["P"],
+                                            "E": d["E"],
+                                            "C": d["C"],
+                                            "I": d["I"],
+                                            "A": d["A"],
+                                            "L": d["L"]},
+                                           rand.choice(d["WEAPON"].split(",")),
+                                           rand.choice(d["ARMOR"].split(",")),
+                                           rand.choice(d["HELMET"].split(",")),
+                                           bonus=d["BONUS"],
+                                           player_name=d["PLAYER NAME"])
+
+    def __getitem__(self, item):
+        return self.combatants[item]
 
 
 class Skirmish:

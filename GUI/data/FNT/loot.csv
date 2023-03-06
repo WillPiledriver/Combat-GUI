@@ -1,57 +1,68 @@
 NAME,CATEGORY,RARITY,VALUE,WEIGHT,AMOUNT
-9mm,ammo,COMMON,4,20,3-5
 .22 cal,ammo,COMMON,2,20,3-5
-energy cell,ammo,UNCOMMON,15,10,1-4
-5.56mm,ammo,RARE,7,5,3-5
-.50 cal,ammo,MYTHIC,40,1,1
 .308 winchester,ammo,UNCOMMON,7,10,2-3
 .45 acp,ammo,UNCOMMON,7,10,2-3
+.50 cal,ammo,MYTHIC,40,1,1
+5.56mm,ammo,RARE,7,5,3-5
+9mm,ammo,COMMON,4,20,3-5
 broadhead arrow,ammo,RARE,30,2,1
 crude arrow,ammo,RARE,10,5,1-2
-nikola tesla and you,book,UNIQUE,1000,1,1
-tumblers today,book,UNIQUE,1000,1,1
+energy cell,ammo,UNCOMMON,15,10,1-4
 big book of science,book,UNIQUE,1000,1,1
-grognak the barbarian,book,UNIQUE,1000,1,1
-todays physician,book,UNIQUE,1000,1,1
-guns and bullets,book,UNIQUE,1000,1,1
-deans electronics,book,UNIQUE,1000,1,1
-dc journal of internal medicine,book,UNIQUE,1000,1,1
-pugilism illustrated,book,UNIQUE,1000,1,1
-lying congressional style,book,UNIQUE,1000,1,1
-US Army: 30 Handy Flamethrower Recipes,book,UNIQUE,1000,1,1
-duck and cover,book,UNIQUE,1000,1,1
 Chinese Army: Special ops training manual,book,UNIQUE,1000,1,1
+dc journal of internal medicine,book,UNIQUE,1000,1,1
+deans electronics,book,UNIQUE,1000,1,1
+duck and cover,book,UNIQUE,1000,1,1
+grognak the barbarian,book,UNIQUE,1000,1,1
+guns and bullets,book,UNIQUE,1000,1,1
+lying congressional style,book,UNIQUE,1000,1,1
+nikola tesla and you,book,UNIQUE,1000,1,1
 paradise lost,book,UNIQUE,1000,1,1
-stimpack,chem,RARE,150,7,1
-jet,chem,EPIC,200,5,1
+pugilism illustrated,book,UNIQUE,1000,1,1
+todays physician,book,UNIQUE,1000,1,1
+tumblers today,book,UNIQUE,1000,1,1
+US Army: 30 Handy Flamethrower Recipes,book,UNIQUE,1000,1,1
 buffout,chem,EPIC,200,5,1
+jet,chem,EPIC,200,5,1
+Psycho,chem,EPIC,200,5,1
 Rad-x,chem,RARE,100,5,1
 RadAway,chem,EPIC,200,5,1
-Psycho,chem,EPIC,200,5,1
 stealth boy,chem,EPIC,250,2,1
+stimpack,chem,RARE,150,7,1
 caps,currency,GUARANTEED,1,50,3-7
-doubloon,currency,UNCOMMON,10,10,1
+doubloon,currency,UNCOMMON,10,5,1
 end zone credit,currency,EPIC,100,1,1
-nuka cola,food,RARE,50,5,1-2
-dirty water,food,COMMON,15,10,1
-purified water,food,UNCOMMON,30,7,1
-cram,food,UNCOMMON,15,15,1
-fancy lad snack cakes,food,UNCOMMON,15,15,1
+beer,food,UNCOMMON,10,10,1
 blamco mac and cheese,food,UNCOMMON,15,15,1
-yumyum deviled eggs,food,UNCOMMON,15,15,1
-squirrel on a stick,food,UNCOMMON,15,15,1
 brahmin steak,food,RARE,35,5,1
-Sunset Sarsaparilla,food,RARE,75,5,1-2
-radroach meat,food,COMMON,10,15,1
+cram,food,UNCOMMON,15,15,1
 dandy boy apples,food,UNCOMMON,10,15,1
+dirty water,food,COMMON,15,10,1
+fancy lad snack cakes,food,UNCOMMON,15,15,1
 gatorclaw meat,food,RARE,50,5,1
 gatorclaw medallions,food,EPIC,100,2,1
 molerat meat,food,COMMON,10,15,1-2
+nuka cola,food,RARE,50,5,1-2
+nuka cola quantum,food,EPIC,150,1,1
+potato crisps,food,UNCOMMON,15,15,1
+purified water,food,UNCOMMON,30,7,1
+radroach meat,food,COMMON,10,15,1
+squirrel on a stick,food,UNCOMMON,15,15,1
 sugar bombs,food,RARE,25,7,1
-beer,food,UNCOMMON,10,10,1
-scrap metal,junk,JUNK,25,5,1-2
+Sunset Sarsaparilla,food,RARE,75,5,1-2
+yumyum deviled eggs,food,UNCOMMON,15,15,1
+bobby pin,junk,COMMON,5,5,1-3
 fusion battery,junk,RARE,100,1,1
 leather,junk,UNCOMMON,15,5,1-2
 lizard skin,junk,UNCOMMON,20,5,1
-m1911,weapon,RARE,300,1,1
+penjamin,junk,RARE,100,1,1-2
+scrap metal,junk,JUNK,25,5,1-2
+.22 pistol,weapon,UNCOMMON,50,3,1
 combat knife,weapon,RARE,100,1,1
+cutlass,weapon,RARE,150,1,1
+m1911,weapon,RARE,300,1,1
+rum,food,RARE,20,3,1
+scotch,food,RARE,20,3,1
+shotgun placeholder,weapon,RARE,100,1,1
+fire arrow,ammo,EPIC,150,1,1
+molotov cocktail,weapon,EPIC,50,1,1

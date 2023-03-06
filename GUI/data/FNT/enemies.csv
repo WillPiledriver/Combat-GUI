@@ -24,3 +24,8 @@ scumdog,scum,6-7,6-7,5-7,1,5,5-8,5,"SG 30-40,M 20-30,U 20-35","louisville slugge
 scumbag archer,scum,4,7,3,1,3,5-6,7,AR 25-35,"crude bow (crude),crude bow (broadhead),recurve bow (crude),recurve bow (broadhead)",leather jacket,50,1,"Scumbag Archer,Scumbag with a Bow,Scumbag Hunter,Scumbag Falconer,Scumbag Scout"
 feral dog,creatures,3-4,3-4,3-4,1,1-2,4-5,3,U 15-25,"dog bite,dog tackle",hide,30,1,"Three-Legged Dog,Rabid Dog,Feral Dog,Mangy Dog,Feral Dog with One Ear,Feral Dog with no Tail"
 small lizard,creatures,3-4,3-4,3-4,1,1,2-3,3,"U 20-30,TH 25-35","lizard spit,small lizard bite",lizard hide,30,1,
+bonnie,bucs,6,6,6,6,6,6,6,"BG 40,SG 30",mudskipper cannon (FB),buccaneer armor,0,1,
+sam,bucs,3,7,4,1,3,6,5,SG 30,blunderbuss,buccaneer armor,0,1,
+charlie,bucs,4,9,5,1,5,9,5,"SG 45,EW 45","laser flintlock,plasma eye of reach",buccaneer armor,0,1,
+strong jim,linebackers,9,3,9,1,2,7,9,"U 30,M 40","louisville slugger,spiked knuckles",football armor,0,1,
+captain sludge,bucs,5,9,9,9,9,9,9,"SG 40,U 40,M 40,BG 50,HP 20,EW 40",plasma eye of reach,buccaneer armor,0,1,
