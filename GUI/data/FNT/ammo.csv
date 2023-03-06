@@ -6,7 +6,7 @@ NAME,AC,DR,DMG,IGN_ARM,DT,DMG_TYPE
 7.62mm,0,0,1d12,0,0,N
 .45 acp,-2,-5,1d8,0,-1,N
 crude arrow,0,0,1d6,0,-1,N
-.308 winchester,-2,-7,1d10,0,-3,N
+.308 winchester,-2,-7,2d6,0,-3,N
 broadhead arrow,0,-5,1d10,0,-2,N
 blessed .44,-5,0,1d12,1,0,N
 filibuster,-5,-8,2d10,0,-2,E

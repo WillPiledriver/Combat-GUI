@@ -33,12 +33,28 @@ class Weapon:
         self.name = name
         self.ap = int(ap)
         self.skill = skill
-        self.dmg = dmg
+        self._dmg = dmg if dmg is not None else 0
         self.db = db
         self.range = range
-        self.ammo = ammo
+        self.ammo = AmmoList(ad=ammo_dict)[ammo]
         self.rounds = rounds
         self.dmg_type = dmg_type
+        self.temp_num = 0
+
+    @property
+    def dmg(self):
+        # TODO: rolling damage
+        dmg = 0
+        if self.ammo is None:
+            one = tools.roll(self._dmg)[1]
+            #print(one, self.db, self.dmg_type)
+            dmg += one + int(self.db)
+        else:
+            #print(self._dmg, self.ammo.dmg, self.dmg_type, self.ammo.dmg_type)
+            dmg = int(self._dmg) + self.ammo.dmg
+        print(dmg)
+        lol = tools.roll(self._dmg)[1] + tools.roll((self.ammo.dmg if self.ammo is not None else 0))[1]
+        return lol
 
 
 class Ammo:
@@ -46,10 +62,16 @@ class Ammo:
         self.name = name
         self.ac = ac
         self.dr = dr
-        self.dmg = dmg
+        self._dmg = dmg if dmg is not None else 0
         self.dt = dt
         self.ign_arm = ign_arm
         self.dmg_type = dmg_type
+
+    @property
+    def dmg(self):
+        if self._dmg is None:
+            return 0
+        return tools.roll(self._dmg)[1]
 
 
 class Armor:
@@ -89,15 +111,16 @@ class AmmoList:
                      ammo_info["DR"],
                      ammo_info["DMG"],
                      ammo_info["DT"],
-                     ammo_info["IGN ARM"],
+                     ammo_info["IGN_ARM"],
                      ammo_info["DMG_TYPE"])
             self.ammos[ammo_name.lower()] = a
 
     def __getitem__(self, name):
-        try:
-            return self.ammos[name.lower()]
-        except KeyError:
-            raise KeyError(f"{name} not found in AmmoList")
+        if len(name) > 0:
+            try:
+                return self.ammos[name.lower()]
+            except KeyError:
+                raise KeyError(f"{name} not found in AmmoList")
 
 
 class WeaponList:
@@ -274,8 +297,21 @@ class Combatant:
 
         # exec() hack
         self.temp_num = 0
-        
 
+        self._max_hp = int(self.get_skill("HP"))
+        self._hp = int(self.get_skill("HP"))
+
+    @property
+    def hp(self):
+        return self._hp
+
+    @hp.setter
+    def hp(self, new_value):
+        new_value = int(new_value)
+        if new_value > self._max_hp:
+            self._hp = int(self._max_hp)
+        else:
+            self._hp = new_value
 
     def get_skill(self, name):
         b = dict()

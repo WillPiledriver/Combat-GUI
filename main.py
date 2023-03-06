@@ -12,7 +12,14 @@ p = CombatantList(root_path+"players.csv", root_path+"enemies.csv")
 print(weapons["molerat bite"].dmg)
 print(a["leather jacket"].resistances)
 print(h["pre-war hat"].get_r("N"))
-print(p["Fukuyo Saito"].get_skill("AC"))
+print(p["Fukuyo Saito"].hp - 100)
+print(p["Fukuyo Saito"].hp)
+
+fukuyo = p["Fukuyo Saito"]
+nate = p["Steve Sherwin"]
+for i in range(10):
+    fukuyo.hp -= nate.weapon.dmg
+    print(fukuyo.hp)
 #obj = GUI()
 #obj.start()
 
