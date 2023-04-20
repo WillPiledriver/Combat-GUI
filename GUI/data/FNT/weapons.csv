@@ -22,7 +22,7 @@ laser rifle,6,EW,3d6,0,30,,,L
 m16a2,6,SG,3,0,40,5.56mm,,N
 wakizashi blade,3,M,1d12,4+{MD},1,,,N
 combat knife,3,M,1d10,3+{MD},1,,,N
-m2,1,SG,3,0,30,.50 cal,30,N
+m2,3,SG,3,0,30,.50 cal,30,N
 hanyang 88,5,SG,5,0,75,7.62mm,5,N
 chinese assault rifle,4,SG,1,0,25,5.56mm,20,N
 radroach tackle,3,U,1d3,0,2,,,N
@@ -49,6 +49,8 @@ lizard spit,5,TH,1d8,1,10,,,N
 small lizard bite,3,U,1d6,{MD},1,,,N
 greedos laser pistol,3,EW,2d8,8,7,,5,L
 mudskipper cannon (FB),5,BG,5,0,25,filibuster,1,E
-blunderbuss,5,SG,5,0,5,buckshot,1,N
+blunderbuss,5,SG,5,0,5,grapeshot,1,N
 laser flintlock,5,EW,4d8,8,10,,1,L
 plasma eye of reach,5,EW,2d10,10,30,,1,P
+cutlass,4,M,1d8,{MD}+1,1,,,N
+mudskipper cannon (P),5,BG,3d10,10,20,,1,P

@@ -297,9 +297,15 @@ class Combatant:
 
         # exec() hack
         self.temp_num = 0
+        self._temp = dict()
 
         self._max_hp = int(self.get_skill("HP"))
         self._hp = int(self.get_skill("HP"))
+
+
+    @property
+    def temp(self):
+        return self._temp
 
     @property
     def hp(self):
@@ -464,9 +470,16 @@ class Skirmish:
                     "COOLDOWN": 2,
                     "INSTANT": True
                 },
-                "crippled": {
-                    "SQ": -5,
-                    "AP": -2,
+                "crippled legs": {
+                    "SQ": -7,
+                    "AP": -3,
+                    "COOLDOWN": 3,
+                    "INSTANT": True
+                },
+                "crippled arms": {
+                    "HIT": -25,
+                    "MD": -3,
+                    "AP": -1,
                     "COOLDOWN": 3,
                     "INSTANT": True
                 },
@@ -479,6 +492,7 @@ class Skirmish:
                 "blind": {
                     "HIT": -60,
                     "SQ": -2,
+                    "COOLDOWN": 3,
                     "INSTANT": True
                 },
                 "bleeding": {
@@ -516,7 +530,8 @@ class Skirmish:
                     "INSTANT": True
                 },
                 "med-x": {
-                    "DR": 50,
+                    "DR": 25,
+                    "COOLDOWN": 2,
                     "INSTANT": True
                 }
             }
@@ -653,6 +668,10 @@ class Skirmish:
 
         # Height Modifier
         self.hit_mod += (self.con.pos[a["pos"]]["LEVEL"] - self.con.pos[d["pos"]]["LEVEL"]) * 10
+
+        # Ammo AC Modifier
+        if len(self.weapon_dict[a["WEAPON"]]["AMMO"]) > 0:
+            self.hit_mod += int(ammo_dict[weapon_dict[a["WEAPON"]]["AMMO"]]["AC"])
 
         self.temp_ap = int(a["secondary_skills"]["AP"])
         delete_effects = list()
@@ -1404,6 +1423,8 @@ class GUI:
             temp_com = copy.deepcopy(skirm.combatants)
 
             for com, d in temp_com.items():
+                if not isinstance(d["eff"], dict):
+                    d["eff"] = dict()
                 for eff, dd in d["eff"].items():
                     if "SQ" in dd:
                         temp_com[com]["secondary_skills"]["SQ"] += dd["SQ"]

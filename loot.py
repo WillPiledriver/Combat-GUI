@@ -24,6 +24,7 @@ class Loot:
         self.category = category
         self.weight = weight
         self.amount_orig = amount
+        self.temp_amount = amount
         self.rarity = rarity
         self.value = int(value)
 
@@ -31,17 +32,19 @@ class Loot:
     def amount(self):
         if isinstance(self.amount_orig, str) and "-" in self.amount_orig:
             min_amount, max_amount = map(int, re.findall(r"\d+", self.amount_orig))
-            return random.randint(min_amount, max_amount)
-        else:
-            return int(self.amount_orig)
+            self.temp_amount = random.randint(min_amount, max_amount)
+            return self.temp_amount
+        self.temp_amount = int(self.amount_orig)
+        return int(self.amount_orig)
 
     @amount.setter
     def amount(self, new_value):
-        self.amount_orig = new_value
+        self.temp_amount = new_value
+        a = 0
 
     def __str__(self):
-        return f"{self.amount} {self.name} found - estimated value: " \
-               f"{self.amount * self.value} - ({self.rarities[self.rarity]})"
+        return f"{self.temp_amount} {self.name} found - estimated value: " \
+               f"{int(self.temp_amount) * self.value} - ({self.rarities[self.rarity]})"
 
 
 class LootTable:
@@ -124,7 +127,21 @@ class Chest:
                 return items
 
 
-for i in range(100):
-    for l in Chest(LootTable(all_items).search_by_rarity([Loot.RARE, Loot.UNCOMMON]), 5).open(Loot.RARE, False):
+rarity = Loot.UNIQUE
+cats = ["weapon"]  # ["ammo", "currency", "weapon", "book", "chem", "junk", "food"]
+loot_table = LootTable(all_items)
+loot = None
+
+if len(cats) != 0:
+    for cat in cats:
+        if loot is None:
+            loot = loot_table.search_by_category(cat)
+        else:
+            loot += loot_table.search_by_category(cat)
+else:
+    loot = loot_table
+
+for i in range(3):
+    for l in Chest(loot, 1).open(Loot.EPIC, False):
         print(l)
     print()
